@@ -1,16 +1,14 @@
-from django.shortcuts import render
-from django.http import HttpResponse
-from .forms import RegistrationForm
-from django.http import HttpResponseRedirect 
+from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login, logout
 # Create your views here.
 def index(request):
-   return render(request, 'pages/home.html')
-
-def register(request):
-    form = RegistrationForm()
-    if request.method == 'POST':
-        form = RegistrationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect('/')
-    return render(request, 'pages/register.html', {'form': form})
+    if request.POST:
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('/admin')
+        else:
+            return render(request, 'pages/home.html')
+    return render(request, 'pages/home.html')
