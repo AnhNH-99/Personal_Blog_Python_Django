@@ -27,12 +27,12 @@
                <div class="col-md-8 offset-md-2">
                   <div class="full">
                      <div class="big_blog">
-                        <img class="img-responsive" src="images/blog_1.png" alt="#" />
+                        <img class="img-responsive" src="{{post.image.url}}" alt="#" />
                      </div>
                      <div class="blog_cont_2">
-                        <h3>Why do we use it</h3>
-                        <p class="sublittle">March 19 2019  5 READ</p>
-                        <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters as opposed to using Content here content here making..</p>
+                        <h3>{{post.title}}</h3>
+                        <p class="sublittle">{{post.date}}</p>
+                        <p>{{post.body}}</p>
                      </div>
                   </div>
                </div>

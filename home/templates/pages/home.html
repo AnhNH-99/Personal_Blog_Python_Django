@@ -35,7 +35,7 @@ Home
                <h3>{{PostNew.author}}</h3>
                <p>{{PostNew.body}}</p>
                <div class="button_section">
-                  <a href="/blog/2">Read More</a>
+                  <a href="/blog/{{PostNew.id}}">Read More</a>
                   <a href="contact.html">Contact Us</a>
                </div>
             </div>
@@ -55,27 +55,31 @@ Home
          </div>
       </div>
       {%for post in Post%}
-         <div class="row margin_top_30">
+      <div class="row margin_top_30">
          <div class="col-md-6">
-            <img src="{{post.image.url}}" alt="#" />
+            <a class="d-block" href="/blog/{{post.id}}"><img src="{{post.image.url}}" alt="#" /></a>
          </div>
          <div class="col-md-6">
             <div class="full blog_cont">
-               <h4>{{post.title}}</h4>
+               <a href="/blog/{{post.id}}">
+                  <h4>{{post.title}}</h4>
+               </a>
                <h5>{{post.date|date:"d-m-Y"}}</h5>
                <p>{{post.body}}</p>
             </div>
          </div>
       </div>
       {%endfor%}
-      
+      {% if Post.has_next %}
       <div class="row margin_top_30">
          <div class="col-md-12">
             <div class="button_section full center margin_top_30">
-               <a style="margin:0;" href="about.html">Read More</a>
+               <a style="margin:0;" href="{{request.path}}?page={{Post.next_page_number}}">Read More</a>
             </div>
          </div>
       </div>
+{% endif %}
+      
    </div>
 </div>
 <!-- end section -->
