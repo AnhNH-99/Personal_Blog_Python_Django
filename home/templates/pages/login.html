@@ -1,0 +1,51 @@
+{% extends "pages/base.html" %} {% load static %} {% block content %}
+<div class="container">
+  <div class="login" style="margin: auto">
+    <span class="fas fa-sign-in-alt"></span>
+    <strong>Welcome!</strong>
+    <span>Sign in to your account</span>
+
+    <form method="post" class="login-form">
+      {% csrf_token %} {% for key, value in form.errors.items %} {{value}} {%endfor %}
+      <fieldset>
+        <div class="form">
+          <div class="form-row">
+            <span class="fas fa-user"></span>
+            <label class="form-label" for="input">Name</label>
+            <input
+              class="form-text"
+              type="form-text"
+              name="username"
+              autofocus=""
+              autocapitalize="none"
+              autocomplete="username"
+              maxlength="150"
+              required=""
+              id="id_username"
+            />
+          </div>
+          <div class="form-row">
+            <span class="fas fa-eye"></span>
+            <label class="form-label" for="input">Password</label>
+            <input
+              class="form-text"
+              type="password"
+              name="password"
+              autocomplete="current-password"
+              required=""
+              id="id_password"
+            />
+          </div>
+          
+          <div class="form-row button-login">
+          <input type="hidden" name="next" value="/"/>
+            <button class="btn btn-login" type="submit">
+              Login <span class="fas fa-arrow-right"></span>
+            </button>
+          </div>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</div>
+{% endblock %}

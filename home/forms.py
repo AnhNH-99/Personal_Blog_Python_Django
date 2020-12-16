@@ -3,10 +3,10 @@ import re
 from django.contrib.auth.models import User
 
 class RegistrationForm(forms.Form):
-    username = forms.CharField(label='Tài khoản', max_length=30)
-    email = forms.EmailField(label='Email')
-    password1 = forms.CharField(label='Mật khẩu', widget=forms.PasswordInput())
-    password2 = forms.CharField(label='Nhập lại mật khẩu', widget=forms.PasswordInput())
+    username = forms.CharField(max_length=30)
+    email = forms.EmailField()
+    password1 = forms.CharField(widget=forms.PasswordInput())
+    password2 = forms.CharField(widget=forms.PasswordInput())
 
     def clean_password2(self):
         if 'password1' in self.cleaned_data:

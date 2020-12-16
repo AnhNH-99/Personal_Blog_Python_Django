@@ -6,3 +6,4 @@ class Post(models.Model):
     body = models.TextField()
     date = models.DateTimeField(auto_now_add = True)
     image = models.ImageField(null = True)
+    author = models.TextField(max_length = 255, null = True)
