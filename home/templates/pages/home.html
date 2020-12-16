@@ -33,7 +33,7 @@ Home
             <div class="full slider_cont_section">
                <h4>{{PostNew.title}}</h4>
                <h3>{{PostNew.author}}</h3>
-               <p>{{PostNew.body}}</p>
+               <p>{{PostNew.body|safe|linebreaks}}</p>
                <div class="button_section">
                   <a href="/blog/{{PostNew.id}}">Read More</a>
                   <a href="contact.html">Contact Us</a>
@@ -65,7 +65,7 @@ Home
                   <h4>{{post.title}}</h4>
                </a>
                <h5>{{post.date|date:"d-m-Y"}}</h5>
-               <p>{{post.body}}</p>
+               <p>{{post.body|safe|linebreaks}}</p>
             </div>
          </div>
       </div>

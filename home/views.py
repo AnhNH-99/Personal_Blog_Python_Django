@@ -16,14 +16,6 @@ def index(request):
         page = 1
     pageSize = 2 * page
     paginator = Paginator(listPost, pageSize)
-    # pageNumber = request.GET.get('page')
-    # page_obj = paginator.get_page(pageNumber)
-    # try:
-    #     page_obj = paginator.page(pageNumber)
-    # except PageNotAnInteger:
-    #     page_obj = paginator.page(1)
-    # except EmptyPage:
-    #     page_obj = paginator.page(paginator.num_pages)
     page_obj = paginator.get_page(1)
     Data = {'Post': page_obj, 'PostNew': postnew}
     return render(request, 'pages/home.html', Data)
