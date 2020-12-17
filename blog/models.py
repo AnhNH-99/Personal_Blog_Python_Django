@@ -15,7 +15,7 @@ class Comment(models.Model):
     date = models.DateTimeField(auto_now_add=True)
 
 class Reply(models.Model):
-    comment = models.ForeignKey(Comment, on_delete=models.CASCADE, related_name='reply')
+    comment = models.ForeignKey(Comment, on_delete=models.CASCADE, related_name='replys')
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     body = models.TextField()
     date = models.DateTimeField(auto_now_add=True)

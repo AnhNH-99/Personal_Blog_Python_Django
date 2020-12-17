@@ -68,6 +68,41 @@
                      <div class="row">
                         <div class="col">
                            <div class="show__element comment__reply_{{comment.id}}">
+                            {%for reply in comment.replys.all %}
+                                 <div class="col-md-12">
+                                    <div class="full contact_text">
+                                       <h3>{{reply.author}}</h3>
+                                       <h4>{{reply.date}}</h4>
+                                       <p>{{reply.body|linebreaks}}</p>
+                                    </div>
+                                 </div>
+                            {%endfor%}
+                            <div class="row">
+                              <div class="col-md-12">
+                                 <div class="full comment_form">
+                                    <form action="{% url 'post' post.id %}" method="POST" name="comment">
+                                       {% csrf_token %}
+                                          <fieldset>
+                                             <div class="col-md-12">
+                                                <div class="row">
+                                                   <div class="col-md-12">
+                                                   <input type="hidden" name="commentId" value="{{comment.id}}">
+                                                   <textarea placeholder="Comment" name="body" cols="40" rows="10" required="" id="id_body"></textarea>
+                                                   </div>
+                                                </div>
+                                                <div class="row margin_top_30">
+                                                   <div class="col-md-12">
+                                                      <div class="center">
+                                                         <button type="submit">Send</button>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                          </fieldset>
+                                       </form>
+                                       </div>
+                                    </div>
+                                 </div>
                            </div>
                         </div>
                      </div>
@@ -93,8 +128,7 @@
                               <div class="row">
                                  
                                  <div class="col-md-12">
-                                 <textarea placeholder="Comment" name="body" cols="40" rows="10" required="" id="id_body"></textarea>
-                                    
+                                 <textarea placeholder="Comment" name="body" cols="40" rows="10" required="" id="id_body"></textarea>  
                                  </div>
                               </div>
                               <div class="row margin_top_30">
