@@ -78,8 +78,8 @@
                   <li>
                     <a href="contact.html">Contact us</a>
                   </li>
-                  {% if user.username %}
-                  <li><a href="marketing.html">Welcome, {{ user.username }}.</a></li>
+                  {% if User %}
+                  <li><a href="marketing.html">Welcome, {{ User }}.</a></li>
                   <li><a href="{% url 'logout' %}">Logout</a></li>
                   {% else %}
                   <li>
