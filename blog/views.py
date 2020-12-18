@@ -5,20 +5,22 @@ from django.http import HttpResponseRedirect
 from django.core.paginator import Paginator
 from django.contrib.auth.models import User
 # Create your views here.
+
+
 def post(request, id):
     username = None
     user = None
     if request.session.get('user'):
         username = request.session['user']
         user = get_object_or_404(User, username=username)
-    post = get_object_or_404(Post, id = id)
+    post = get_object_or_404(Post, id=id)
     form = CommentForm()
-    fromReply = ReplyForm()
+    from_reply = ReplyForm()
     if request.method == 'POST':
-        if request.POST.get("commentId", ""):
-            commentId = request.POST.get("commentId", "")
+        if request.POST.get("comment_id", ""):
+            comment_id = request.POST.get("comment_id", "")
             body = request.POST.get("body", "")
-            comment = get_object_or_404(Comment, id = commentId)
+            comment = get_object_or_404(Comment, id=comment_id)
             form = ReplyForm(request.POST, author=user, comment=comment)
             if form.is_valid():
                 form.save()
@@ -28,6 +30,23 @@ def post(request, id):
             if form.is_valid():
                 form.save()
                 return HttpResponseRedirect(request.path)
-    return render(request, 'pages/post.html', {'post': post, 'form': form, 'fromReply': fromReply, 'User': username})
+    return render(request, 'pages/post.html', {'post': post, 'form': form, 'from_reply': from_reply, 'user': username})
 
 
+def list_blog(request):
+    user = None
+    query = None
+    if request.session.get('user'):
+        user = request.session['user']
+    list_post = Post.objects.all()
+    if request.GET.get('search'):
+        query = request.GET.get('search')
+        list_post = Post.objects.filter(title__icontains=query)
+    page = request.GET.get('page')
+    if page is None:
+        page = 1
+    page_size = 2
+    paginator = Paginator(list_post, page_size)
+    page_obj = paginator.get_page(page)
+    data = {'posts': page_obj, 'user': user, 'search': query}
+    return render(request, 'pages/blog.html', data)

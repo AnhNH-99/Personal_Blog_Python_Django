@@ -70,16 +70,16 @@
                     <a href="/">Home</a>
                   </li>
                   <li>
-                    <a href="about.html">About</a>
+                    <a href="{% url 'about' %}">About</a>
                   </li>
                   <li>
-                    <a href="blog.html">Blog</a>
+                    <a href="{% url 'blog' %}">Blog</a>
                   </li>
                   <li>
-                    <a href="contact.html">Contact us</a>
+                    <a href="#">Contact us</a>
                   </li>
-                  {% if User %}
-                  <li><a href="marketing.html">Welcome, {{ User }}.</a></li>
+                  {% if user %}
+                  <li><a href="#">Welcome, {{ user }}.</a></li>
                   <li><a href="{% url 'logout' %}">Logout</a></li>
                   {% else %}
                   <li>
@@ -90,7 +90,10 @@
                   </li>
                   {% endif %}
                   <li>
-                    <a href="#"><img src="{%static 'images/search_icon.png'%}" alt="#" /></a>
+                    <form action="/blog/" id = "form_search">
+                      <input type="text" name="search" class="form-control search__box" placeholder="Search">
+                    </form>
+                    <img src="{%static 'images/search_icon.png'%}" alt="#"  onclick="openSeachBox()"/>
                   </li>
                 </ul>
               </nav>
@@ -233,6 +236,17 @@
       </div>
     </div>
   </div>
+  <script>
+    let seachBox = document.getElementsByClassName('search__box')[0];
+    seachBox.addEventListener('keyup', event => {
+      if (event.keyCode === 13) {
+        document.getElementById("form_search").submit();
+      }
+    })
+    function openSeachBox() {
+      seachBox.classList.toggle('show__input')
+    }
+  </script>
 </body>
 
 <!-- end footer -->

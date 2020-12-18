@@ -1,0 +1,58 @@
+{% extends "pages/base.html" %}
+{% load static %}
+{% block title %}
+Home
+{% endblock %}
+
+{% block content %}
+<!-- section -->
+<div class="section layout_padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="heading">
+                    <h3>Blog</h3>
+                </div>
+            </div>
+        </div>
+        {%for post in posts%}
+        <div class="row margin_top_30">
+            <div class="col-md-6">
+                <a class="d-block" href="/blog/{{post.id}}"><img class="w-100" src="{{post.image.url}}" style="height: 300px !important; object-fit: cover;" alt="#" /></a>
+            </div>
+            <div class="col-md-6">
+                <div class="full blog_cont">
+                    <a href="/blog/{{post.id}}">
+                        <h4>{{post.title}}</h4>
+                    </a>
+                    <h5>{{post.date|date:"d-m-Y"}}</h5>
+                    <p class="content__line--9">{{post.body}}</p>
+                </div>
+            </div>
+        </div>
+        {%endfor%}
+        {% if posts.has_next %}
+            {% if search %}
+            <div class="row margin_top_30">
+                <div class="col-md-12">
+                    <div class="button_section full center margin_top_30">
+                        <a style="margin:0;" href="{{request.path}}?search={{search}}&page={{posts.next_page_number}}">Read More</a>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+            <div class="row margin_top_30">
+                <div class="col-md-12">
+                    <div class="button_section full center margin_top_30">
+                        <a style="margin:0;" href="{{request.path}}?page={{posts.next_page_number}}">Read More</a>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        {% endif %}
+
+    </div>
+</div>
+<!-- end section -->
+
+{% endblock %}

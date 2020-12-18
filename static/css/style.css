@@ -1054,6 +1054,7 @@ nav.main-menu {
 .main-menu ul {
 	margin: 0;
 	list-style-type: none;
+	position: relative;
 }
 
 .main-menu ul>li {
@@ -1825,7 +1826,7 @@ input[type="radio"] .styled:checked+label::after {
 }
 
 .blog_cont {
-    padding-top: 30px;
+    padding-top: 0px;
 }
 
 .comment_form {
@@ -2128,9 +2129,27 @@ ul.social_icon li a {
 	display: none;
 }
 
+.content__line--9 {
+	display: -webkit-box;
+	-webkit-line-clamp: 8;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+	white-space: pre;
+}
 
+.search__box {
+	position: absolute;
+	top: 0;
+	right: 3rem;
+	width: 0;
+	transition: 1s;
+	visibility: hidden;
+}
 
-
+.show__input {
+	visibility: visible;
+	width: 50vw;
+}
 
 
 

@@ -2,6 +2,7 @@ from django.shortcuts import render
 from .forms import RegistrationForm
 from django.http import HttpResponseRedirect
 from blog.models import Post
+from .models import About
 from django.views.generic import ListView, DetailView
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib import auth
@@ -13,35 +14,44 @@ def index(request):
     user = None
     if request.session.get('user'):
         user = request.session['user']
-    postnew = Post.objects.last()
-    listPost = Post.objects.all()
+    about = About.objects.last()
+    list_post = Post.objects.all()
     page = request.GET.get('page')
     if page is None:
         page = 1
-    pageSize = 2 * page
-    paginator = Paginator(listPost, pageSize)
+    page_size = 2 * int(page)
+    paginator = Paginator(list_post, page_size)
     page_obj = paginator.get_page(1)
-    Data = {'Post': page_obj, 'PostNew': postnew, 'User': user}
-    return render(request, 'pages/home.html', Data)
+    if int(page) > 1:
+        page_obj.next_page_number = int(page) + 1
+    data = {'posts': page_obj, 'about': about, 'user': user}
+    return render(request, 'pages/home.html', data)
 
-
-class PostListView(ListView):
-    queryset = Post.objects.all().order_by("-date")
-    template_name = "pages/home.html"
-    context_object_name = 'Post'
-    paginate_by = 2
-
+def about(request):
+    user = None
+    if request.session.get('user'):
+        user = request.session['user']
+    about = About.objects.last()
+    data = {'about': about, 'user': user}
+    return render(request, 'pages/about.html', data)
 
 def register(request):
+    user = None
+    if request.session.get('user'):
+        user = request.session['user']
     form = RegistrationForm()
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect('/')
-    return render(request, 'pages/register.html', {'form': form})
+            message = "Sign Up Success"
+            return HttpResponseRedirect('/', {'message': message, 'user': user})
+    return render(request, 'pages/register.html', {'form': form, 'user': user})
 
 def login(request):
+    user = None
+    if request.session.get('user'):
+        user = request.session['user']
     if request.method == 'POST':
         username = request.POST.get('username', '')
         password = request.POST.get('password', '')
@@ -52,11 +62,12 @@ def login(request):
                 del request.session['user']
             request.session['user'] = user.username
             # Redirect to a success page.
-            return HttpResponseRedirect("/")
+            message = "Sign In Success"
+            return HttpResponseRedirect("/", {'message': message, 'user': user})
         else:
             error = 'Account or password is incorrect'
-            return render(request, 'pages/login.html', {'Error': error})
-    return render(request, 'pages/login.html')
+            return render(request, 'pages/login.html', {'error': error})
+    return render(request, 'pages/login.html', {'user': user})
 
 def logout(request):
     try:

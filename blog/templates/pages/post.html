@@ -1,10 +1,10 @@
 {% extends "pages/base.html" %}
- {% load static %}
+{% load static %}
 {% block title %}{{post.title}}{% endblock %}
- 
+
 {% block content %}
-      <!-- revolution slider -->
-      
+<!-- revolution slider -->
+
 <div class="Blog-bg">
    <div class="container">
       <div class="row">
@@ -16,144 +16,142 @@
       </div>
    </div>
 </div>
-      <!-- section --> 
-      <div class="section layout_padding blog_blue_bg light_silver">
-         <div class="container">
-            
-            <div class="row">
-               <div class="col-md-8 offset-md-2">
-                  <div class="full">
-                     <div class="big_blog">
-                        <img class="img-responsive" src="{{post.image.url}}" alt="#" />
-                     </div>
-                     <div class="blog_cont_2">
-                        <h3>{{post.title}}</h3>
-                        <p class="sublittle">{{post.date}}</p>
-                        <p>{{post.body|safe|linebreaks}}</p>
-                     </div>
-                  </div>
+<!-- section -->
+<div class="section layout_padding blog_blue_bg light_silver">
+   <div class="container">
+
+      <div class="row">
+         <div class="col-md-8 offset-md-2">
+            <div class="full">
+               <div class="big_blog mb-2">
+                  <img class="img-responsive w-100" src="{{post.image.url}}" alt="#" />
+               </div>
+               <div class="blog_cont_2">
+                  <h3>{{post.title}}</h3>
+                  <p class="sublittle">{{post.date}}</p>
+                  <p>{{post.body|safe|linebreaks}}</p>
                </div>
             </div>
          </div>
       </div>
-      <!-- end section -->
+   </div>
+</div>
+<!-- end section -->
 
 <!-- section -->
-      <section class="layout_padding">
-         <div class="container">
-            <div class="row">
-               <div class="col-md-12">
-                  <div class="heading" style="padding-left: 15px;padding-right: 15px;">
-                     <h4 style="border-bottom: solid #333 1px;">Comments</h4>
-                  </div>
-               </div>
+<section class="layout_padding">
+   <div class="container">
+      <div class="row">
+         <div class="col-md-12">
+            <div class="heading" style="padding-left: 15px;padding-right: 15px;">
+               <h4 style="border-bottom: solid #333 1px;">Comments</h4>
             </div>
-
-            <div class="row">
-               <div class="col-md-12">
-                  {%for  comment in post.comments.all %}
-                  <div class="full comment_blog_line">
-                     <div class="row">
-                        <div class="col-md-10">
-                           <div class="full contact_text">
-                              <h3>{{comment.author}}</h3>
-                              <h4>{{comment.date}}</h4>
-                              <p>{{comment.body|linebreaks}}</p>
-                           </div>
-                        </div>
-                        <div class="col-md-2">
-                           <button class="reply_bt" onClick="showReplyComent({{comment.id}})">Reply</button>
-                        </div>
-                     </div>
-                     <div class="row">
-                        <div class="col">
-                           <div class="show__element comment__reply_{{comment.id}}">
-                            {%for reply in comment.replys.all %}
-                                 <div class="col-md-12">
-                                    <div class="full contact_text">
-                                       <h3>{{reply.author}}</h3>
-                                       <h4>{{reply.date}}</h4>
-                                       <p>{{reply.body|linebreaks}}</p>
-                                    </div>
-                                 </div>
-                            {%endfor%}
-                            <div class="row">
-                              <div class="col-md-12">
-                                 <div class="full comment_form">
-                                    <form action="{% url 'post' post.id %}" method="POST" name="comment">
-                                       {% csrf_token %}
-                                          <fieldset>
-                                             <div class="col-md-12">
-                                                <div class="row">
-                                                   <div class="col-md-12">
-                                                   <input type="hidden" name="commentId" value="{{comment.id}}">
-                                                   <textarea placeholder="Comment" name="body" cols="40" rows="10" required="" id="id_body"></textarea>
-                                                   </div>
-                                                </div>
-                                                <div class="row margin_top_30">
-                                                   <div class="col-md-12">
-                                                      <div class="center">
-                                                         <button type="submit">Send</button>
-                                                      </div>
-                                                   </div>
-                                                </div>
-                                             </div>
-                                          </fieldset>
-                                       </form>
-                                       </div>
-                                    </div>
-                                 </div>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-                  {% endfor%}
-               </div>
-            </div>
-            {% if User%}
-            <div class="row margin_top_30">
-               <div class="col-md-12 margin_top_30">
-                  <div class="heading" style="padding-left: 15px;padding-right: 15px;">
-                     <h4>Post : Your Comment</h4>
-                  </div>
-               </div>
-            </div>
-            <div class="row">
-               <div class="col-md-12">
-                  <div class="full comment_form">
-                     <form form action="{% url 'post' post.id %}" method="POST" name="comment">
-                     {% csrf_token %}
-                        <fieldset>
-                           <div class="col-md-12">
-                              <div class="row">
-                                 
-                                 <div class="col-md-12">
-                                 <textarea placeholder="Comment" name="body" cols="40" rows="10" required="" id="id_body"></textarea>  
-                                 </div>
-                              </div>
-                              <div class="row margin_top_30">
-                                 <div class="col-md-12">
-                                    <div class="center">
-                                       <button type="submit">Send</button>
-                                    </div>
-                                 </div>
-                              </div>
-                           </div>
-                        </fieldset>
-                     </form>
-                  </div>
-               </div>
-            </div>
-            {% endif %}
          </div>
-      </section>
-      <!-- end section -->
+      </div>
 
-      <script>
-         function showReplyComent(postId) {
-            const replyEl = document.querySelector(`div.comment__reply_${postId}`);
-            replyEl.classList.toggle('comment__reply');
-         }
-      </script>
-      
+      <div class="row">
+         <div class="col-md-12">
+            {%for comment in post.comments.all %}
+            <div class="full comment_blog_line">
+               <div class="row">
+                  <div class="col-md-10">
+                     <div class="full contact_text">
+                        <h3>{{comment.author}}</h3>
+                        <h4>{{comment.date}}</h4>
+                        <p class="font-weight-normal text-dark">{{comment.body}}</p>
+                     </div>
+                  </div>
+                  <div class="col-md-2">
+                     <button class="reply_bt" onClick="showReplyComent({{comment.id}})">Reply</button>
+                  </div>
+               </div>
+               <div class="row">
+                  <div class="col">
+                     <div class="show__element comment__reply_{{comment.id}}">
+                        {%for reply in comment.replys.all %}
+                        <div class="col-md-12">
+                           <div class="full contact_text border-bottom mb-2">
+                              <h3>{{reply.author}}</h3>
+                              <h4>{{reply.date}}</h4>
+                              <p class="font-weight-normal text-dark">{{reply.body}}</p>
+                           </div>
+                        </div>
+                        {%endfor%}
+                        {% if user%}
+                        <div class="row">
+                           <div class="col-md-12">
+                              <div class="full">
+                                 <form action="{% url 'post' post.id %}" method="POST" name="comment">
+                                    {% csrf_token %}
+                                    <fieldset>
+                                       <div class="col-md-12"><br>
+                                          <div class="row">
+                                             <div class="col-md-12 d-flex">
+                                                <input type="hidden" name="comment_id" value="{{comment.id}}">
+                                                <input placeholder="Reply comment..." class="form-control" name="body"
+                                                   cols="40" rows="10" required="" id="id_body">
+                                                <button type="submit" class="btn btn-primary ml-2">Send</button>
+                                             </div>
+                                          </div>
+                                       </div>
+                                    </fieldset>
+                                 </form>
+                              </div>
+                           </div>
+                        </div>
+                        {% endif %}
+                     </div>
+                  </div>
+               </div>
+            </div>
+            {% endfor%}
+         </div>
+      </div>
+      {% if user%}
+      <div class="row margin_top_30">
+         <div class="col-md-12 margin_top_30">
+            <div class="heading" style="padding-left: 15px;padding-right: 15px;">
+               <h4>Post : Your Comment</h4>
+            </div>
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-md-12">
+            <div class="full comment_form">
+               <form form action="{% url 'post' post.id %}" method="POST" name="comment">
+                  {% csrf_token %}
+                  <fieldset>
+                     <div class="col-md-12">
+                        <div class="row">
+
+                           <div class="col-md-12">
+                              <textarea placeholder="Comment..." name="body" cols="40" rows="10" required=""
+                                 id="id_body"></textarea>
+                           </div>
+                        </div>
+                        <div class="row margin_top_30">
+                           <div class="col-md-12">
+                              <div class="center">
+                                 <button type="submit">Send</button>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </fieldset>
+               </form>
+            </div>
+         </div>
+      </div>
+      {% endif %}
+   </div>
+</section>
+<!-- end section -->
+
+<script>
+   function showReplyComent(postId) {
+      const replyEl = document.querySelector(`div.comment__reply_${postId}`);
+      replyEl.classList.toggle('comment__reply');
+   }
+</script>
+
 {% endblock %}
