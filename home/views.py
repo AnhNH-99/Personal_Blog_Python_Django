@@ -7,6 +7,7 @@ from django.views.generic import ListView, DetailView
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib import auth
 from django.contrib.sessions.models import Session
+from django.contrib.auth.models import User
 # Create your views here.
 
 
@@ -15,7 +16,7 @@ def index(request):
     if request.session.get('user'):
         user = request.session['user']
     about = About.objects.last()
-    list_post = Post.objects.all()
+    list_post = Post.objects.all().order_by('-date')
     page = request.GET.get('page')
     if page is None:
         page = 1
@@ -66,7 +67,7 @@ def login(request):
             return HttpResponseRedirect("/", {'message': message, 'user': user})
         else:
             error = 'Account or password is incorrect'
-            return render(request, 'pages/login.html', {'error': error})
+            return render(request, 'pages/login.html', {'error': error, 'user': user})
     return render(request, 'pages/login.html', {'user': user})
 
 def logout(request):

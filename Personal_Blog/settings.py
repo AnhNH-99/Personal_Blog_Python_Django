@@ -26,7 +26,7 @@ SECRET_KEY = '(755@ds9#)38#jalxf==_md6l53)9kmyge&vo$^-4*o^@xtzvi'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1:8000', 'han-blogger.herokuapp.com']
+ALLOWED_HOSTS = ['jack-blogger.herokuapp.com', '127.0.0.1']
 
 
 # Application definition
@@ -39,8 +39,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'home',
-    'blog'
+    'blog',
+    'ckeditor',
+    'ckeditor_uploader'
 ]
+
+CKEDITOR_UPLOAD_PATH = "uploads/"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -122,10 +126,14 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.normpath(os.path.join(BASE_DIR, 'staticfiles'))
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_DIR = os.path.join(BASE_DIR, "static")
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
-]
 
+
+STATIC_DIR
+
+
+]
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
