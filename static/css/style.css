@@ -1946,8 +1946,6 @@ input[type="radio"] .styled:checked+label::after {
 
 footer {
     background: #0f0824;
-    min-height: 500px;
-    padding: 90px 0;
 }
 
 .footer_links h3 {

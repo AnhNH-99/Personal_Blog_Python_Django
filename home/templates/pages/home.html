@@ -6,6 +6,7 @@ Home
 
 {% block content %}
 <!-- revolution slider -->
+{% if about %}
 <div class="banner-slider">
    <div class="container-fluid">
       <div class="row">
@@ -42,8 +43,10 @@ Home
       </div>
    </div>
 </div>
+{% endif %}
 <!-- end revolution slider -->
 <!-- section -->
+{% if posts %}
 <div class="section layout_padding">
    <div class="container">
       <div class="row">
@@ -82,5 +85,6 @@ Home
       {% endif %}
    </div>
 </div>
+{% endif %}
 <!-- end section -->
 {% endblock %}
