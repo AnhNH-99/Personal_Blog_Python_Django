@@ -32,26 +32,30 @@ Home
             </div>
         </div>
         {%endfor%}
-        {% if posts.has_next %}
-            {% if search %}
             <div class="row margin_top_30">
                 <div class="col-md-12">
-                    <div class="button_section full center margin_top_30">
-                        <a style="margin:0;" href="{{request.path}}?search={{search}}&page={{posts.next_page_number}}">Read More</a>
-                    </div>
+                        <div class="button_section full center margin_top_30">
+                        {% if posts.has_previous %}
+                            {% if search %}
+                            <a style="margin:0;" href="{{request.path}}?search={{search}}&page={{posts.previous_page_number}}">Read More</a>
+                            {% else %}
+                            <a style="margin:0;" href="{{request.path}}?page={{posts.previous_page_number}}">Previous</a>
+                            {% endif %}
+                     {% endif %}
+                     {% if posts %}
+                     <h3 style="margin:0;padding-top: 14px;">Page {{ posts.number }} of {{ posts.paginator.num_pages }}.</h3>
+                     {% endif %}
+                     {% if posts.has_next %}
+                            {% if search %}
+                            <a style="margin:0;" href="{{request.path}}?search={{search}}&page={{posts.next_page_number}}">Read More</a>
+                            {% else %}
+                            <a style="margin:0;" href="{{request.path}}?page={{posts.next_page_number}}">Next</a>
+                            {% endif %}
+                            {% endif %}
+                        </div>
+                     
                 </div>
             </div>
-            {% else %}
-            <div class="row margin_top_30">
-                <div class="col-md-12">
-                    <div class="button_section full center margin_top_30">
-                        <a style="margin:0;" href="{{request.path}}?page={{posts.next_page_number}}">Read More</a>
-                    </div>
-                </div>
-            </div>
-            {% endif %}
-        {% endif %}
-
     </div>
 </div>
 <!-- end section -->

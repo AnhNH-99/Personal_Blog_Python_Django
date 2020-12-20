@@ -3,6 +3,7 @@
 {% block title %}{{post.title}}{% endblock %}
 
 {% block content %}
+{% if about %}
 <!-- revolution slider -->
 
 <div class="Blog-bg">
@@ -37,4 +38,5 @@
     </div>
 </div>
 <!-- end section -->
+{% endif %}
 {% endblock %}
