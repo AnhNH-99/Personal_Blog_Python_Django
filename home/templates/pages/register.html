@@ -1,0 +1,54 @@
+{% extends "pages/base.html" %} {% load static %} {% block content %}
+<div class="container">
+  <!-- register -->
+  <div class="register" style="margin: auto">
+    <span class="fas fa-user-circle"></span>
+    <strong>Create account!</strong>
+    <form action="." method="post" class="register-form">
+      {% csrf_token %}{% for key, value in form.errors.items %} {{value}} {%endfor %}
+      <fieldset>
+        <div class="form">
+          <div class="form-row">
+            <span class="fas fa-user"></span>
+            <label class="form-label" for="input">Name</label>
+            <input class="form-text" type="text" name="username" maxlength="30" required="" id="id_username">
+          </div>
+          <div class="form-row">
+            <span class="fas fa-envelope"></span>
+            <label class="form-label" for="input">E-mail</label>
+            <input class="form-text" type="email" name="email" required="" id="id_email">
+          </div>
+          <div class="form-row">
+            <span class="fas fa-lock"></span>
+            <label class="form-label" for="input">Password</label>
+            <input class="form-text" type="password" name="password1" required="" id="id_password1">
+          </div>
+          <div class="form-row">
+            <span class="fas fa-lock"></span>
+            <label class="form-label" for="input">Confirm password</label>
+            <input class="form-text" type="password" name="password2" required="" id="id_password2">
+          </div>
+          <div class="form-row button-login">
+            <button class="btn btn-login" type="submit">
+              Create <span class="fas fa-arrow-right"></span>
+            </button>
+          </div>
+        </div>
+      </fieldset>
+    </form>
+
+    <span class="create-account">Or create account using social media!</span>
+
+    <div class="social-media">
+      <a href="#facebook" class="fb"><span class="fab fa-facebook"></span></a>
+      <a href="#twitter" class="tw"><span class="fab fa-twitter"></span></a>
+      <a href="#pinterest" class="pi"><span class="fab fa-pinterest"></span></a>
+    </div>
+
+    
+  </div>
+  <!-- //register -->
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends "pages/base.html" %}
+{% load static %}
+{% block title %}{{post.title}}{% endblock %}
+
+{% block content %}
+{% if about %}
+<!-- revolution slider -->
+
+<div class="Blog-bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="Blogheading">
+                    <h3>About </h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- section -->
+<div class="section layout_padding blog_blue_bg light_silver">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <div class="full">
+                    <div class="big_blog mb-2">
+                        <img class="img-responsive w-100" src="{{about.image.url}}" alt="#" />
+                    </div>
+                    <div class="blog_cont_2">
+                        <h3>{{about.title}}</h3>
+                        <p class="sublittle">{{about.date}}</p>
+                        <p>{{about.body|safe|linebreaks}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end section -->
+{% endif %}
+{% endblock %}

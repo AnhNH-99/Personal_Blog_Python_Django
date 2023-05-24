@@ -1,0 +1,90 @@
+{% extends "pages/base.html" %}
+{% load static %}
+{% block title %}
+Home
+{% endblock %}
+
+{% block content %}
+<!-- revolution slider -->
+{% if about %}
+<div class="banner-slider">
+   <div class="container-fluid">
+      <div class="row">
+         <div class="col-md-7">
+            <div id="slider_main" class="carousel slide" data-ride="carousel">
+               <!-- The slideshow -->
+               <div class="carousel-inner">
+                  <div class="carousel-item active">
+                     <img src="{{about.image.url}}" alt="#" />
+                  </div>
+                  <div class="carousel-item">
+                     <img src="{{about.image.url}}" alt="#" />
+                  </div>
+               </div>
+               <!-- Left and right controls -->
+               <a class="carousel-control-prev" href="#slider_main" data-slide="prev">
+                  <i class="fa fa-angle-left" aria-hidden="true"></i>
+               </a>
+               <a class="carousel-control-next" href="#slider_main" data-slide="next">
+                  <i class="fa fa-angle-right" aria-hidden="true"></i>
+               </a>
+            </div>
+         </div>
+         <div class="col-md-5">
+            <div class="full slider_cont_section">
+               <h4>{{about.title}}</h4>
+               <h3>{{about.author}}</h3>
+               <p>{{about.body}}</p>
+               <div class="button_section">
+                  <a href="{% url 'about' %}">Read More</a>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+{% endif %}
+<!-- end revolution slider -->
+<!-- section -->
+{% if posts %}
+<div class="section layout_padding">
+   <div class="container">
+      <div class="row">
+         <div class="col-md-12">
+            <div class="heading">
+               <h3>Blog</h3>
+            </div>
+         </div>
+      </div>
+      {%for post in posts%}
+      <div class="row margin_top_30">
+         <div class="col-md-6">
+            <a class="d-block" href="/blog/{{post.id}}"><img class="w-100" src="{{post.image.url}}"
+                  style="height: 300px !important; object-fit: cover;" alt="#" /></a>
+         </div>
+         <div class="col-md-6">
+            <div class="full blog_cont">
+               <a href="/blog/{{post.id}}">
+                  <h4>{{post.title}}</h4>
+               </a>
+               <h5>{{post.date|date:"d-m-Y"}}</h5>
+               <h5>Views: {{post.view}}</h5>
+               <p class="content__line--9">{{post.description}}</p>
+            </div>
+         </div>
+      </div>
+      {%endfor%}
+      {% if posts.has_next %}
+      <div class="row margin_top_30">
+         <div class="col-md-12">
+            <div class="button_section full center margin_top_30">
+               <a style="margin:0;" href="{{request.path}}?page={{posts.next_page_number}}">Read More</a>
+            </div>
+         </div>
+      </div>
+      {% endif %}
+   </div>
+</div>
+{% endif %}
+<!-- end section -->
+{% endblock %}
